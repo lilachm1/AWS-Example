@@ -4,6 +4,7 @@ import org.testng.ITestContext ;
 import org.testng.ITestListener ;
 import org.testng.ITestResult ;
 
+//comment This class show us at the TESTNG:  which test  passed or failed and the reason.
 
 public class listeners implements ITestListener{
 
