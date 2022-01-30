@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -40,16 +41,16 @@ public class UnpplugedDev {
 
         }
 
-    /*@AfterMethod
+    @AfterMethod
     public void resetApp() {
         driver.resetApp();
-    }*/
+    }
 
         @Test
         public void test01_register_plus_email_and_phone() {
 
             driver.findElement(By.id("register_btn")).click();
-            driver.findElement(By.id("first_name_input")).sendKeys("tal34");
+            driver.findElement(By.id("first_name_input")).sendKeys("tal37");
             driver.findElement(By.id("last_name_input")).sendKeys("test");
             driver.findElement(By.id("email_input")).sendKeys("lilach@unplugged-systems.com");
             driver.findElement(By.id("phone_number_input")).sendKeys("972526623377");
@@ -61,36 +62,51 @@ public class UnpplugedDev {
             driver.findElement(By.id("button1")).click();
         }
 
-    @Test
-    public void test02_forgotmyPassword() {
-        driver.findElement(By.id("sign_in_btn")).click();
-        driver.findElement(By.id("username_input")).sendKeys("tal32.test");
-        driver.findElement(By.id("forgot_password_tv")).click();
-        driver.findElement(By.id("username_input")).sendKeys("tal32.test");
-        driver.findElement(By.id("password_input")).click();
-    }
+
             @Test
-            public void test03_sing_in() {
+            public void test02_sing_in_plus_install() {
                 driver.findElement(By.id("sign_in_btn")).click();
-                driver.findElement(By.id("username_input")).sendKeys("tal23.test");
+                driver.findElement(By.id("username_input")).sendKeys("tal37.test");
                 driver.findElement(By.id("password_input")).sendKeys("lilach5");
                 driver.findElement(By.id("sign_in_btn")).click();
+           /*     WebDriverWait wait = new WebDriverWait(driver, 10);
+                wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
+                driver.findElement(By.id("button1")).click();
+                driver.findElement(By.id("install_status")).click();
+                driver.findElement(By.id("install_app_btn")).click();
+                driver.findElement(By.id("close_tv")).click();*/
+
+
+
+
+
 
             }
 
+    @Test
+    public void test03_register_witout_email_and_phone() {
 
+        driver.findElement(By.id("register_btn")).click();
+        driver.findElement(By.id("first_name_input")).sendKeys("tal39");
+        driver.findElement(By.id("last_name_input")).sendKeys("test");
+        driver.findElement(By.id("password_input")).sendKeys("lilach5");
+        driver.findElement(By.id("confirm_password_input")).sendKeys("lilach5");
+        driver.findElement(By.id("register_btn")).click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
+        driver.findElement(By.id("button1")).click();
+    }
 
+        @Test
+    public void test04_forgotmyPassword() {
+        driver.findElement(By.id("sign_in_btn")).click();
+        driver.findElement(By.id("username_input")).sendKeys("tal35.test");
+        driver.findElement(By.id("forgot_password_tv")).click();
+        driver.findElement(By.id("username_input")).sendKeys("tal35.test");
+        driver.findElement(By.id("password_input")).click();
 
-             @Test
-        public void test04_register_witout_email_and_phone() {
+    }
 
-            driver.findElement(By.id("register_btn")).click();
-            driver.findElement(By.id("first_name_input")).sendKeys("tal34");
-            driver.findElement(By.id("last_name_input")).sendKeys("test");
-            driver.findElement(By.id("password_input")).sendKeys("lilach5");
-            driver.findElement(By.id("confirm_password_input")).sendKeys("lilach5");
-            driver.findElement(By.id("register_btn")).click();
-            driver.findElement(By.id("button1")).click();
 
         }
 
@@ -98,7 +114,6 @@ public class UnpplugedDev {
 
 
 
-        }
 
     /*@AfterClass
     public void close_app() {
