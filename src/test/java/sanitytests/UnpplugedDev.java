@@ -59,8 +59,13 @@ public class UnpplugedDev {
 
     }
 
+    /*
+            ##################################################################
+            This method go back to the APP HP after every The test is over
+            ##################################################################
 
-   /* @AfterMethod
+         */
+  /*  @AfterMethod
     public void resetApp() {
         driver.resetApp();
    } */
@@ -85,11 +90,27 @@ public class UnpplugedDev {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         test02_sing();
 
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.findElement(By.id("payment_btn")).click();
+
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.findElement(By.id("button1")).click();
+
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        click_on_messenger_app();
+     // install button   driver.findElement(By.id("install_app_btn")).click();
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        driver.findElement(By.id(" home")).click();
+
+       // close button  driver.findElement(By.id("install_app_btn")).click();
+
+
+
     }
 
     @Test
     public void click_on_messenger_app() {
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+      //  driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
 
         MobileElement messengerElement = recyclerView.findElementByAccessibilityId("com.unplugged.messenger");
@@ -97,8 +118,6 @@ public class UnpplugedDev {
             messengerElement.click();
         }
     }
-    // driver.executeScript("seetest:client.swipeWhileNotFound(\"Down\", 0, 2000, 'NATIVE', \"xpath=//*[@contentDescription='com.unplugged.messenger']\", 3, 1000, 1, true)");
-
 
     @Test
     public void test02_sing() {
@@ -113,14 +132,18 @@ public class UnpplugedDev {
     public void test03_register_witout_email_and_phone() {
 
         driver.findElement(By.id("register_btn")).click();
-        driver.findElement(By.id("first_name_input")).sendKeys("tal39");
+        driver.findElement(By.id("first_name_input")).sendKeys("lilach");
         driver.findElement(By.id("last_name_input")).sendKeys("test");
-        driver.findElement(By.id("password_input")).sendKeys("lilach5");
-        driver.findElement(By.id("confirm_password_input")).sendKeys("lilach5");
+        driver.findElement(By.id("username_input")).sendKeys(username);
+        driver.findElement(By.id("password_input")).sendKeys(password);
+        driver.findElement(By.id("confirm_password_input")).sendKeys(password);
         driver.findElement(By.id("register_btn")).click();
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
         driver.findElement(By.id("button1")).click();
+
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        test02_sing();
     }
 
     @Test
@@ -132,7 +155,9 @@ public class UnpplugedDev {
         driver.findElement(By.id("password_input")).click();
 
     }
-
+    /**
+     * Generate a random string.
+     */
     private String generateRandomUsername(){
         String username = new RandomString().nextString();
         System.out.println("generateRandomUsername called: "+username);
@@ -145,7 +170,12 @@ public class UnpplugedDev {
 
 
 
+  /*
+            ##################################################################
+            This method close  the APP after all The tests in the class is over.
+            ##################################################################
 
+         */
 
     /*@AfterClass
     public void close_app() {
