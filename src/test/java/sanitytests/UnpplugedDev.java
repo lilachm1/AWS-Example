@@ -5,9 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
-import org.boon.core.Sys;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,9 +13,8 @@ import org.testng.annotations.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import static org.testng.Assert.*;
 
 // This Class is the main sanity tests of the DEV version.
 
@@ -61,17 +58,76 @@ public class UnpplugedDev {
 
     /*
             ##################################################################
-            This method go back to the APP HP after every The test is over
+            This method go back to the APP HP after every The test is over.
             ##################################################################
 
          */
-  /*  @AfterMethod
+
+ /* @AfterMethod
     public void resetApp() {
         driver.resetApp();
-   } */
+   }
+
+  /*
+            ##################################################################
+            Automation Script no1: When The Messenger App is not installed.
+             This test check: Registration with email and password with generateRandomUsername and string password .
+             Then sing in. Then at the payment page press ok with no money.Then at the store
+             click on the Messenger App and press on the download button
+
+             ##################################################################
+
+*/
 
     @Test
-    public void test01_register_plus_email_and_phone() {
+    public void register_plus_email_and_phone_01() {
+
+     driver.findElement(By.id("register_btn")).click();
+     driver.findElement(By.id("first_name_input")).sendKeys("lilach");
+     driver.findElement(By.id("last_name_input")).sendKeys("test");
+     driver.findElement(By.id("username_input")).sendKeys(username);
+     driver.findElement(By.id("email_input")).sendKeys("lilach@unplugged-systems.com");
+     driver.findElement(By.id("phone_number_input")).sendKeys("972526623377");
+     driver.findElement(By.id("password_input")).sendKeys(password);
+     driver.findElement(By.id("confirm_password_input")).sendKeys(password);
+     driver.findElement(By.id("register_btn")).click();
+     WebDriverWait wait = new WebDriverWait(driver, 10);
+     wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
+     driver.findElement(By.id("button1")).click();
+
+
+     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+     sing_in();
+
+     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+     driver.findElement(By.id("payment_btn")).click();
+
+     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+     driver.findElement(By.id("button1")).click();
+
+     assertTrue(driver.findElement(By.id("install_status")).isDisplayed());
+
+
+   click_on_messenger_app();
+
+    driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+
+  driver.findElement(By.id("install_app_btn")).click();
+
+ }
+
+/*
+            ##################################################################
+            Automation Script no2: After the Messenger App is installed this test check :
+             Registration with email and password with generateRandomUsername and string password .
+             Then sing in. Then at the payment page press ok with no money.
+             Then verification of the installed button. Then click on messenger app
+             and press on the close button and then logout.
+            ##################################################################
+
+         */
+    @Test
+    public void register_plus_email_and_phone_02() {
 
         driver.findElement(By.id("register_btn")).click();
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
@@ -88,7 +144,7 @@ public class UnpplugedDev {
 
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        test02_sing();
+        sing_in();
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.findElement(By.id("payment_btn")).click();
@@ -97,39 +153,75 @@ public class UnpplugedDev {
         driver.findElement(By.id("button1")).click();
 
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-        click_on_messenger_app();
-     // install button   driver.findElement(By.id("install_app_btn")).click();
+
+    click_on_messenger_app();
+        // close button
+        driver.findElement(By.id("close_tv")).click();
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-        driver.findElement(By.id(" home")).click();
+        driver.findElement(By.className("android.widget.ImageButton")).click();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.findElement(By.id("action_logout")).click();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.findElement(By.id("button1")).click();
 
-       // close button  driver.findElement(By.id("install_app_btn")).click();
+}
 
+     /*
+            ##################################################################
+            Automation Script no3: After the messenger App is installed this test check :
+             Registration with email and password with generateRandomUsername and string password .
+             Then sing in . Then payment page press ok with no money.Then click on messenger app
+             and press on the open button.
 
+            ##################################################################
 
-    }
+         */
 
     @Test
-    public void click_on_messenger_app() {
-      //  driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-        AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
+    public void register_plus_email_and_phone_03() {
 
-        MobileElement messengerElement = recyclerView.findElementByAccessibilityId("com.unplugged.messenger");
-        if (messengerElement != null) {
-            messengerElement.click();
-        }
-    }
-
-    @Test
-    public void test02_sing() {
-        driver.findElement(By.id("sign_in_btn")).click();
+        driver.findElement(By.id("register_btn")).click();
+        driver.findElement(By.id("first_name_input")).sendKeys("lilach");
+        driver.findElement(By.id("last_name_input")).sendKeys("test");
         driver.findElement(By.id("username_input")).sendKeys(username);
+        driver.findElement(By.id("email_input")).sendKeys("lilach@unplugged-systems.com");
+        driver.findElement(By.id("phone_number_input")).sendKeys("972526623377");
         driver.findElement(By.id("password_input")).sendKeys(password);
-        driver.findElement(By.id("sign_in_btn")).click();
+        driver.findElement(By.id("confirm_password_input")).sendKeys(password);
+        driver.findElement(By.id("register_btn")).click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
+        driver.findElement(By.id("button1")).click();
+
+
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        sing_in();
+
+     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.findElement(By.id("payment_btn")).click();
+
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.findElement(By.id("button1")).click();
+
+        click_on_messenger_app();
+
+        driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+
+        driver.findElement(By.id("install_app_btn")).click();
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+
     }
 
+    /*
+         ##################################################################
+          Automation Script no4: After the messenger App is installed this test check :
+          Registration without email and password with generateRandomUsername and string password .
 
+          ##################################################################
+
+            */
     @Test
-    public void test03_register_witout_email_and_phone() {
+    public void register_without_email_and_phone() {
 
         driver.findElement(By.id("register_btn")).click();
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
@@ -142,19 +234,69 @@ public class UnpplugedDev {
         wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
         driver.findElement(By.id("button1")).click();
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        test02_sing();
+      driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.findElement(By.id("button1")).click();
+
     }
 
+/*
+ ##################################################################
+    Automation Script no5: After the messenger App is installed this test check :
+    Registration with email and password with generateRandomUsername and string password.
+    Then press on forgot my password and then manually verify that The email has been sent
+
+  ##################################################################
+       */
+
     @Test
-    public void test04_forgotmyPassword() {
+public void register_and_forgot_my_password() {
+
+        driver.findElement(By.id("register_btn")).click();
+        driver.findElement(By.id("first_name_input")).sendKeys("lilach");
+        driver.findElement(By.id("last_name_input")).sendKeys("test");
+        driver.findElement(By.id("username_input")).sendKeys(username);
+        driver.findElement(By.id("email_input")).sendKeys("lilach@unplugged-systems.com");
+        driver.findElement(By.id("phone_number_input")).sendKeys("972526623377");
+        driver.findElement(By.id("password_input")).sendKeys(password);
+        driver.findElement(By.id("confirm_password_input")).sendKeys(password);
+        driver.findElement(By.id("register_btn")).click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
+        driver.findElement(By.id("button1")).click();
+
+
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        forgot_my_Password();
+    }
+
+
+    public void forgot_my_Password() {
         driver.findElement(By.id("sign_in_btn")).click();
-        driver.findElement(By.id("username_input")).sendKeys("tal35.test");
+        driver.findElement(By.id("username_input")).sendKeys(username);
         driver.findElement(By.id("forgot_password_tv")).click();
-        driver.findElement(By.id("username_input")).sendKeys("tal35.test");
+        driver.findElement(By.id("username_input")).sendKeys(username);
         driver.findElement(By.id("password_input")).click();
 
     }
+
+    public void click_on_messenger_app() {
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
+
+        MobileElement messengerElement = recyclerView.findElementByAccessibilityId("com.unplugged.messenger");
+        if (messengerElement != null) {
+            messengerElement.click();
+        }
+
+    }
+        public void sing_in() {
+            driver.findElement(By.id("sign_in_btn")).click();
+            driver.findElement(By.id("username_input")).sendKeys(username);
+            driver.findElement(By.id("password_input")).sendKeys(password);
+            driver.findElement(By.id("sign_in_btn")).click();
+        }
+
+
     /**
      * Generate a random string.
      */
@@ -170,11 +312,9 @@ public class UnpplugedDev {
 
 
 
-  /*
-            ##################################################################
+  /*    ##################################################################
             This method close  the APP after all The tests in the class is over.
-            ##################################################################
-
+        ##################################################################
          */
 
     /*@AfterClass
