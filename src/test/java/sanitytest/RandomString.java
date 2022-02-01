@@ -1,4 +1,4 @@
-package sanitytests;
+package sanitytest;
 
 import java.security.SecureRandom;
 import java.util.Locale;

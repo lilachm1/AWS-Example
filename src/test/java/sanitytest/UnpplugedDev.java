@@ -1,4 +1,4 @@
-package sanitytests;
+package sanitytest;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
@@ -32,9 +32,10 @@ public class UnpplugedDev {
 
     DesiredCapabilities dc = new DesiredCapabilities();
 
+
     /*
         ##################################################################
-        This method receives Platform parameter (mobile: ) and then calls
+        This method receives Platform parameter (mobile:) and then calls
         another method to initiate its driver
         ##################################################################
 
@@ -46,6 +47,7 @@ public class UnpplugedDev {
         dc.setCapability("testName", testName);
         dc.setCapability(MobileCapabilityType.UDID, "R9PR900B9GL");
         dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.unplugged.store");
+     // dc.setCapability("isHeadless", true);
         dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".splash.SplashActivity");
         driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), dc);
 
@@ -63,17 +65,18 @@ public class UnpplugedDev {
 
          */
 
- /* @AfterMethod
+ @AfterMethod
     public void resetApp() {
-        driver.resetApp();
-   }
+         driver.resetApp();
+  }
 
-  /*
-            ##################################################################
-            Automation Script no1: When The Messenger App is not installed.
+
+       /*     ##################################################################
+            Automation Script no1: Before the Messenger App is installed.
              This test check: Registration with email and password with generateRandomUsername and string password .
              Then sing in. Then at the payment page press ok with no money.Then at the store
-             click on the Messenger App and press on the download button
+             click on the Messenger App and press on the download button. Then manually( because
+             its take long time ) press on install and the open or done.
 
              ##################################################################
 
@@ -234,7 +237,7 @@ public class UnpplugedDev {
         wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
         driver.findElement(By.id("button1")).click();
 
-      driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.findElement(By.id("button1")).click();
 
     }
@@ -310,10 +313,8 @@ public void register_and_forgot_my_password() {
 }
 
 
-
-
   /*    ##################################################################
-            This method close  the APP after all The tests in the class is over.
+            This method close the APP after all The tests is over.
         ##################################################################
          */
 
