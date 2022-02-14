@@ -5,6 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -65,10 +66,10 @@ public class UnpplugedDev {
 
          */
 
- @AfterMethod
-    public void resetApp() {
-         driver.resetApp();
-  }
+//@AfterMethod
+ //  public void resetApp() {
+   //   driver.resetApp();
+ //}
 
 
        /*     ##################################################################
@@ -82,8 +83,10 @@ public class UnpplugedDev {
 
 */
 
-    @Test
-    public void register_plus_email_and_phone_01() {
+  @Test(description ="register plus email and phone and install messengerApp")
+
+  //  @Step("register plus email and phone and install messengerApp")
+    public void register_plus_email_and_phone_and_install_messengerApp() {
 
      driver.findElement(By.id("register_btn")).click();
      driver.findElement(By.id("first_name_input")).sendKeys("lilach");
@@ -110,12 +113,14 @@ public class UnpplugedDev {
 
      assertTrue(driver.findElement(By.id("install_status")).isDisplayed());
 
+     //   driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 
    click_on_messenger_app();
 
     driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 
   driver.findElement(By.id("install_app_btn")).click();
+
 
  }
 
@@ -129,8 +134,8 @@ public class UnpplugedDev {
             ##################################################################
 
          */
-    @Test
-    public void register_plus_email_and_phone_02() {
+    @Test(description = "register plus email and phone and press close on MessengerApp")
+    public void register_plus_email_and_phone_and_press_close_on_MessengerApp() {
 
         driver.findElement(By.id("register_btn")).click();
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
@@ -164,8 +169,8 @@ public class UnpplugedDev {
         driver.findElement(By.className("android.widget.ImageButton")).click();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.findElement(By.id("action_logout")).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.findElement(By.id("button1")).click();
+     driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+       driver.findElement(By.id("button1")).click();
 
 }
 
@@ -180,8 +185,8 @@ public class UnpplugedDev {
 
          */
 
-    @Test
-    public void register_plus_email_and_phone_03() {
+    @Test(description ="register plus email and phone and press open on MessengerApp")
+    public void register_plus_email_and_phone_and_press_open_on_MessengerApp() {
 
         driver.findElement(By.id("register_btn")).click();
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
@@ -213,6 +218,11 @@ public class UnpplugedDev {
         driver.findElement(By.id("install_app_btn")).click();
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 
+
+
+
+
+
     }
 
     /*
@@ -223,7 +233,7 @@ public class UnpplugedDev {
           ##################################################################
 
             */
-    @Test
+    @Test(description = "register without email and phone")
     public void register_without_email_and_phone() {
 
         driver.findElement(By.id("register_btn")).click();
@@ -239,6 +249,8 @@ public class UnpplugedDev {
 
      driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.findElement(By.id("button1")).click();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.findElement(By.id("navigate_back_iv")).click();
 
     }
 
@@ -251,8 +263,8 @@ public class UnpplugedDev {
   ##################################################################
        */
 
-    @Test
-public void register_and_forgot_my_password() {
+    @Test(description = "register and_forgot_my_password")
+    public void register_and_forgot_my_password() {
 
         driver.findElement(By.id("register_btn")).click();
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
@@ -270,6 +282,12 @@ public void register_and_forgot_my_password() {
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         forgot_my_Password();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.findElement(By.id("navigate_back_iv")).click();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+
+        driver.findElement(By.id("navigate_back_iv")).click();
+
     }
 
 
@@ -308,6 +326,7 @@ public void register_and_forgot_my_password() {
         System.out.println("generateRandomUsername called: "+username);
         return username.toLowerCase();
     }
+
 
 
 }
