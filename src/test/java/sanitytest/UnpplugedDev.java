@@ -87,6 +87,8 @@ public class UnpplugedDev {
 
   //  @Step("register plus email and phone and install messengerApp")
     public void register_plus_email_and_phone_and_install_messengerApp() {
+      WebDriverWait wait = new WebDriverWait(driver, 10);
+      driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
      driver.findElement(By.id("register_btn")).click();
      driver.findElement(By.id("first_name_input")).sendKeys("lilach");
@@ -97,10 +99,9 @@ public class UnpplugedDev {
      driver.findElement(By.id("password_input")).sendKeys(password);
      driver.findElement(By.id("confirm_password_input")).sendKeys(password);
      driver.findElement(By.id("register_btn")).click();
-     WebDriverWait wait = new WebDriverWait(driver, 10);
+
      wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
      driver.findElement(By.id("button1")).click();
-
 
      driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
      sing_in();
