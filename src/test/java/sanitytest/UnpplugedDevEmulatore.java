@@ -1,5 +1,6 @@
 package sanitytest;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -50,19 +51,22 @@ public class UnpplugedDevEmulatore {
         dc.setCapability("reportDirectory", reportDirectory);
         dc.setCapability("reportFormat", reportFormat);
         dc.setCapability("testName", testName);
-        dc.setCapability(MobileCapabilityType.UDID, "emulator-5554");
+        dc.setCapability(MobileCapabilityType.DEVICE_NAME, "emulator-5554");
         dc.setCapability(MobileCapabilityType.PLATFORM_NAME, "android");
         dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "11");
         dc.setCapability(MobileCapabilityType.APP, "C:\\Automation\\UnpplugedAutomation\\src\\apks\\up_store_v0.5.15.apk");
         dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
         dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.unplugged.store");
         dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".splash.SplashActivity");
-        dc.setCapability(MobileCapabilityType.DEVICE_NAME, "pixel 5 API 30");
-        dc.setCapability(MobileCapabilityType.NO_RESET,true);
- //  dc.setCapability("isHeadless", true);
-        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), dc);
+        //dc.setCapability(MobileCapabilityType.DEVICE_NAME, "pixel 5 API 30");
+ dc.setCapability(MobileCapabilityType.NO_RESET,true);
+ //dc.setCapability("isHeadless", true);
+  driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), dc);
         username = generateRandomUsername();
         password = "lilach123";
+
+
+
 
 
     }
@@ -100,7 +104,7 @@ public class UnpplugedDevEmulatore {
         sing_in();
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.findElement(By.id("payment_btn")).click();
+        driver.findElement(By.xpath("//*[@text='CONTINUE']")).click();
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='OK']")).click();
@@ -206,7 +210,7 @@ public class UnpplugedDevEmulatore {
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='OK']")).click();
-
+driver.resetApp();
     }
 
 /*
@@ -237,6 +241,7 @@ public class UnpplugedDevEmulatore {
 
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         forgot_my_Password();
+        driver.resetApp();
     }
 
 

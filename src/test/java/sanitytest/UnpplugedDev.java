@@ -51,7 +51,6 @@ public class UnpplugedDev {
      // dc.setCapability("isHeadless", true);
         dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".splash.SplashActivity");
         driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), dc);
-
         username = generateRandomUsername();
         password = "lilach123";
 
@@ -196,6 +195,7 @@ driver.resetApp();
         driver.findElement(By.xpath("//*[@text='OK']")).click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.findElement(By.id("navigate_back_iv")).click();
+        driver.resetApp();
 
     }
 
@@ -234,6 +234,7 @@ driver.resetApp();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
         driver.findElement(By.id("navigate_back_iv")).click();
+        driver.resetApp();
 
     }
 
