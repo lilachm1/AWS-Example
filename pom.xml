@@ -103,8 +103,8 @@
                         <version>2.22.1</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>TestNGSuite3.xml</suiteXmlFile>
                                 <suiteXmlFile>TestNGSuite2.xml</suiteXmlFile>
+                                <suiteXmlFile>TestNGSuite3.xml</suiteXmlFile>
                                 <suiteXmlFile>TestNGSuite4.xml</suiteXmlFile>
                                 <suiteXmlFile>TestNGSuite5.xml</suiteXmlFile>
                                 <suiteXmlFile>TestNGSuite6.xml</suiteXmlFile>
