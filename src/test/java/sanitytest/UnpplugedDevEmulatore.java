@@ -71,8 +71,8 @@ public class UnpplugedDevEmulatore {
     @Test(description ="Test 01: Singin with old user and password (not generateRandomUsername and string password)")
     @Description("Test Description: Singin with old user and password.")
     public void sing_in_manual() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         driver.findElement(By.id("sign_in_btn")).click();
         driver.findElement(By.id("username_input")).sendKeys("maks14.test");
@@ -84,8 +84,8 @@ public class UnpplugedDevEmulatore {
     @Description("Test Description: Registration with email and password with generateRandomUsername and string password." +
             "Then sing in.")
     public void register_plus_email_and_phone() {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, 100);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("register_btn")));
         driver.findElement(By.id("register_btn")).click();
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
         driver.findElement(By.id("last_name_input")).sendKeys("test");
@@ -96,13 +96,14 @@ public class UnpplugedDevEmulatore {
         driver.findElement(By.id("confirm_password_input")).sendKeys(password);
         driver.findElement(By.id("register_btn")).click();
 
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK']")));
 
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button1")));
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='OK']")).click();
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         sing_in();
              }
 
@@ -110,16 +111,16 @@ public class UnpplugedDevEmulatore {
     @Description("Test Description: At the SubscriptionPage page choose free, then verify the" +
             " subscription description text and press ok with no money")
     public void subscription_free() {
-        WebDriverWait wait = new WebDriverWait(driver, 80);
+        WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dropdown_item_tv")));
         assertEquals(driver.findElement(By.id("dropdown_item_tv")).getText(), "FREE - 0.0$");
         assertEquals(driver.findElement(By.id("subscription_description_tv")).getText(), "Free subscription " +
                 "get basic functionality like, full access to UP Store, limited VPN services and basic messenger application.");
 
         driver.findElement(By.id("payment_btn")).click();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='OK']")).click();
-      //  driver.resetApp();
+       //driver.resetApp();
     }
 
     @Test(description = "Test 04: Subscription Month")
@@ -153,12 +154,12 @@ public class UnpplugedDevEmulatore {
             "subscription description text then add cupon and verify" +
             "the total price, then press pay with credit card")
     public void subscription_year (){
-    WebDriverWait wait = new WebDriverWait(driver, 30);
+    WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dropdown_item_tv")));
            driver.findElement(By.id("dropdown_item_tv")).click();
         driver.findElement(By.xpath("//*[@text='YEAR - 99.9$']")).click();
         assertEquals(driver.findElement(By.xpath("//*[@text='YEAR - 99.9$']")).getText(),"YEAR - 99.9$");
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         assertEquals(driver.findElement(By.id("subscription_description_tv")).getText(),"Pro subscription get full access to all Unplugged Systems services for year.");
 
         driver.findElement(By.id("coupon_cb")).click();
@@ -245,7 +246,8 @@ public class UnpplugedDevEmulatore {
     @Test(description ="Test 09: Register with generateRandomUsername and string password without email and phone")
     @Description("Test Description: Register without email and phone")
     public void register_without_email_and_phone() {
-
+        WebDriverWait wait = new WebDriverWait(driver, 80);
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("register_btn")));
         driver.findElement(By.id("register_btn")).click();
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
         driver.findElement(By.id("last_name_input")).sendKeys("test");
@@ -253,13 +255,12 @@ public class UnpplugedDevEmulatore {
         driver.findElement(By.id("password_input")).sendKeys(password);
         driver.findElement(By.id("confirm_password_input")).sendKeys(password);
         driver.findElement(By.id("register_btn")).click();
-        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='OK']")));
         driver.findElement(By.xpath("//*[@text='OK']")).click();
 
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='OK']")).click();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         sing_in();
     }
 
@@ -267,6 +268,8 @@ public class UnpplugedDevEmulatore {
     @Description("Test Description:Registration with email and password with generateRandomUsername and string password." +
             "Then press on forgot my password and then manually verify that The email has been sent")
     public void register_and_forgot_my_password() {
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("register_btn")));
         driver.findElement(By.id("register_btn")).click();
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
         driver.findElement(By.id("last_name_input")).sendKeys("test");
@@ -276,11 +279,10 @@ public class UnpplugedDevEmulatore {
         driver.findElement(By.id("password_input")).sendKeys(password);
         driver.findElement(By.id("confirm_password_input")).sendKeys(password);
         driver.findElement(By.id("register_btn")).click();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='OK']")));
         driver.findElement(By.xpath("//*[@text='OK']")).click();
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         forgot_my_Password();
         driver.resetApp();
     }

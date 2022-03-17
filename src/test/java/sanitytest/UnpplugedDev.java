@@ -136,7 +136,7 @@ public class UnpplugedDev {
         driver.findElement(By.id("coupon_cb")).click();
         driver.findElement(By.id("coupon_input")).sendKeys("UPC5");
         driver.findElement(By.id("apply_coupon_btn")).click();
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("total_price_tv")));
         assertEquals(driver.findElement(By.id("total_price_tv")).getText(),"Item total:               $9.90\n" +
                 "Coupon discount: -$5.00\n" +
