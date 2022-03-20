@@ -81,7 +81,7 @@
              </releases>
              <id>Experitest.repo1</id>
              <name>YourName</name>
-             <url>http://repo.experitest.com:8010/Maven2/</url>
+             <url>https://repo.experitest.com:8010/Maven2/</url>
              <layout>default</layout>
          </repository>
     </repositories>
