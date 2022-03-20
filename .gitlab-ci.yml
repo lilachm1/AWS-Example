@@ -83,7 +83,8 @@ Package:
     - APP_VERSION=$(echo ${APP_VERSION} |  awk -F'.' '{print $1"."$2"."$3}' |  sed s/[.]$//)
     - echo "export APP_VERSION=$APP_VERSION" > $VARIABLES_FILE
   script:
-   - 'mvn package -Dmaven.test.skip=true'
+   # - 'mvn package -Dmaven.test.skip=true'
+   - 'mvn package'
   needs: ["Test"]
   artifacts:
     expire_in: 1h
