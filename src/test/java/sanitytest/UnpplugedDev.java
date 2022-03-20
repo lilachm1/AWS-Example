@@ -77,8 +77,8 @@ public class UnpplugedDev {
     @Description("Test Description: Registration with email and password with generateRandomUsername and string password." +
             "Then sing in.")
     public void register_plus_email_and_phone() {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, 40);
+        driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
 
         driver.findElement(By.id("register_btn")).click();
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
@@ -128,10 +128,10 @@ public class UnpplugedDev {
         WebDriverWait wait = new WebDriverWait(driver, 50);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dropdown_item_tv")));
         driver.findElement(By.id("dropdown_item_tv")).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='MONTH - 9.9$']")).click();
         assertEquals(driver.findElement(By.xpath("//*[@text='MONTH - 9.9$']")).getText(),"MONTH - 9.9$");
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
         assertEquals(driver.findElement(By.id("subscription_description_tv")).getText(),"Pro subscription get full access to all Unplugged Systems services for month.");
         driver.findElement(By.id("coupon_cb")).click();
         driver.findElement(By.id("coupon_input")).sendKeys("UPC5");

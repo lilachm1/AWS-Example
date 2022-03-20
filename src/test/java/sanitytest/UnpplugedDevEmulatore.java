@@ -71,8 +71,8 @@ public class UnpplugedDevEmulatore {
     @Test(description ="Test 01: Singin with old user and password (not generateRandomUsername and string password)")
     @Description("Test Description: Singin with old user and password.")
     public void sing_in_manual() {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 
         driver.findElement(By.id("sign_in_btn")).click();
         driver.findElement(By.id("username_input")).sendKeys("maks14.test");
@@ -100,10 +100,10 @@ public class UnpplugedDevEmulatore {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK']")));
 
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button1")));
-        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='OK']")).click();
 
-        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         sing_in();
              }
 
@@ -128,18 +128,18 @@ public class UnpplugedDevEmulatore {
             " subscription description text then add cupon and verify" +
             " the total price, then press pay with credit card")
     public void subscription_month () {
-        WebDriverWait wait = new WebDriverWait(driver, 40);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dropdown_item_tv")));
         driver.findElement(By.id("dropdown_item_tv")).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='MONTH - 9.9$']")).click();
         assertEquals(driver.findElement(By.xpath("//*[@text='MONTH - 9.9$']")).getText(),"MONTH - 9.9$");
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         assertEquals(driver.findElement(By.id("subscription_description_tv")).getText(),"Pro subscription get full access to all Unplugged Systems services for month.");
         driver.findElement(By.id("coupon_cb")).click();
         driver.findElement(By.id("coupon_input")).sendKeys("UPC5");
         driver.findElement(By.id("apply_coupon_btn")).click();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("total_price_tv")));
         assertEquals(driver.findElement(By.id("total_price_tv")).getText(),"Item total:               $9.90\n" +
                 "Coupon discount: -$5.00\n" +
@@ -268,10 +268,10 @@ public class UnpplugedDevEmulatore {
     @Description("Test Description:Registration with email and password with generateRandomUsername and string password." +
             "Then press on forgot my password and then manually verify that The email has been sent")
     public void register_and_forgot_my_password() {
-        WebDriverWait wait = new WebDriverWait(driver, 60);
+        WebDriverWait wait = new WebDriverWait(driver, 80);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("register_btn")));
         driver.findElement(By.id("register_btn")).click();
-        driver.findElement(By.id("first_name_input")).sendKeys("lilach");
+       driver.findElement(By.id("first_name_input")).sendKeys("lilach");
         driver.findElement(By.id("last_name_input")).sendKeys("test");
         driver.findElement(By.id("username_input")).sendKeys(username);
         driver.findElement(By.id("email_input")).sendKeys("lilach@unplugged-systems.com");
@@ -282,7 +282,7 @@ public class UnpplugedDevEmulatore {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='OK']")));
         driver.findElement(By.xpath("//*[@text='OK']")).click();
 
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         forgot_my_Password();
         driver.resetApp();
     }
@@ -313,10 +313,10 @@ public class UnpplugedDevEmulatore {
     @Description("Test Description: At the up store page click on experimental button then ")
     public void experimental_button()
     {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.ImageButton")));
         driver.findElement(By.className("android.widget.ImageButton")).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.findElement(By.id("action_experimental")).click();
         driver.resetApp();
 

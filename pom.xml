@@ -125,12 +125,9 @@
                         <version>2.22.1</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>TestNGSuite80.xml</suiteXmlFile>
                                 <suiteXmlFile>TestNGSuite8.xml</suiteXmlFile>
                                 <suiteXmlFile>TestNGSuite9.xml</suiteXmlFile>
                                 <suiteXmlFile>TestNGSuite11.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite14.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite16.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
@@ -147,10 +144,45 @@
                         <version>2.22.1</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>TestNGSuite12.xml</suiteXmlFile>
                                 <suiteXmlFile>TestNGSuite14.xml</suiteXmlFile>
                                 <suiteXmlFile>TestNGSuite15.xml</suiteXmlFile>
-                                </suiteXmlFiles>
+                                 </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>Emulator2</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.1</version>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>TestNGSuite80.xml</suiteXmlFile>
+                                <suiteXmlFile>TestNGSuite12.xml</suiteXmlFile>
+                                 </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>Emulator3</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.1</version>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>TestNGSuite14.xml</suiteXmlFile>
+                                <suiteXmlFile>TestNGSuite16.xml</suiteXmlFile>
+                            </suiteXmlFiles>
                         </configuration>
                     </plugin>
                 </plugins>
