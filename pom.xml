@@ -36,7 +36,6 @@
             <groupId>com.experitest</groupId>
             <artifactId>appium</artifactId>
             <version>4.1.2</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -64,6 +63,8 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.2</version>
         </dependency>
+<!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+
 </dependencies>
      <repositories>
         <repository>
@@ -74,7 +75,7 @@
              </releases>
              <id>Experitest.repo1</id>
              <name>YourName</name>
-             <url>http://repo.experitest.com:8010/Maven2/</url>
+             <url>https://repo.experitest.com:8010/Maven2/</url>
              <layout>default</layout>
          </repository>
     </repositories>
@@ -88,6 +89,14 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
