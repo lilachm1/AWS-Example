@@ -1,0 +1,345 @@
+stages:
+  - container
+  - test  
+  - bug_report 
+  - package
+  - upgrade_release
+  - upgrade_rc
+  - upgrade_feature
+  - upgrade_bug
+  - build
+  - deploy
+  - rollback
+services:
+  - docker:stable-dind
+variables:
+  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  REGISTRY_URL: registry.gitlab.com/unplugged-systems/up_automation
+  DOCKER_BUILD_ID: ${CI_COMMIT_SHORT_SHA}
+  VARIABLES_FILE: ./variables.txt
+  CONTAINER: ./container.txt
+
+image: maven:latest
+cache:
+  paths:
+    - .m2/repository
+
+Container naming:  
+  stage: container
+  tags:
+    - runner
+  before_script: 
+    - 'command -v ssh-agent || ( apt-get update -qy && apt-get install openssh-client -y )'
+    - eval `ssh-agent -s`
+    - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh key
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh 
+    - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+     - git remote set-url origin git@gitlab.com:$CI_PROJECT_PATH.git
+     - git config --global user.email "${CI_EMAIL}" && git config --global user.name "${CI_USERNAME}"
+     - git checkout -b $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+     - echo "export CONTAINER_NAME=$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME" > container.txt
+     - git add container.txt
+     - git commit -m '[skip ci]'
+     - git push origin dev:$CI_COMMIT_REF_NAME
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'    
+
+Test:
+  stage: test
+  tags:
+    - runner
+  script:
+      # - 'mvn $MAVEN_CLI_OPTS verify'
+   # - mvn verify -Dspring.profiles.active=test     
+    - echo "Test on_success"    
+  only:
+    - dev
+    - master
+
+Bug report:
+  stage: bug_report
+  tags:
+    - runner 
+  script:
+    - echo "ACHTUNG! BUUUUUUUUUG!!!"
+  needs: ["Test"]
+  only:
+    - dev
+    - master
+  when: on_failure
+
+Package: 
+  stage: package
+  tags:
+    - runner
+  before_script:
+    - APP_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+    - APP_VERSION=$(echo ${APP_VERSION} |  awk -F'.' '{print $1"."$2"."$3}' |  sed s/[.]$//)
+    - echo "export APP_VERSION=$APP_VERSION" > $VARIABLES_FILE
+  script:
+   - 'mvn package -Dmaven.test.skip=true'
+  needs: ["Test"]
+  artifacts:
+    expire_in: 1h
+    paths:
+      - target/
+      - $VARIABLES_FILE
+  only:
+    - dev
+    - master
+  when: on_success
+  
+Release update version:
+  stage: upgrade_release
+  tags:
+    - runner
+  before_script: 
+    - 'command -v ssh-agent || ( apt-get update -qy && apt-get install openssh-client -y )'
+    - eval `ssh-agent -s`
+    - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh key
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh 
+    - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+     - version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+     - version=$(echo ${version} |  awk -F'.' '{print $1+1"."$2"."$3}' |  sed s/[.]$//)
+     - git remote set-url origin git@gitlab.com:$CI_PROJECT_PATH.git
+     - git config --global user.email "${CI_EMAIL}" && git config --global user.name "${CI_USERNAME}"
+     - git checkout -b $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+     - mvn -U versions:set -DnewVersion=${version}
+     - git add pom.xml
+     - git commit -m 'update version [skip ci]'  || echo "Version up to date"
+     - git push origin dev:$CI_COMMIT_REF_NAME
+
+  rules:
+    - if: '$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^release/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ $CI_DEFAULT_BRANCH'
+  when: manual  
+
+RC update version:
+  stage: upgrade_rc
+  tags:
+    - runner
+  before_script: 
+    - 'command -v ssh-agent || ( apt-get update -qy && apt-get install openssh-client -y )'
+    - eval `ssh-agent -s`
+    - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh key
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh 
+    - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+     - version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+     - version=$(echo ${version} |  awk -F'.' '{print $1"."$2+1"."$3}' |  sed s/[.]$//)
+     - git remote set-url origin git@gitlab.com:$CI_PROJECT_PATH.git
+     - git config --global user.email "${CI_EMAIL}" && git config --global user.name "${CI_USERNAME}"
+     - git checkout -b $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+     - mvn -U versions:set -DnewVersion=${version}
+     - git add pom.xml
+     - git commit -m 'update version [skip ci]'  || echo "Version up to date"
+     - git push origin dev:$CI_COMMIT_REF_NAME
+  rules:
+    - if: '$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^rc/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ $CI_DEFAULT_BRANCH'
+  when: manual    
+
+Feature update version:
+  stage: upgrade_feature
+  tags:
+    - runner
+  before_script: 
+    - 'command -v ssh-agent || ( apt-get update -qy && apt-get install openssh-client -y )'
+    - eval `ssh-agent -s`
+    - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh key
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh 
+    - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+     - version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+     - version=$(echo ${version} |  awk -F'.' '{print $1"."$2+1"."$3}' |  sed s/[.]$//)
+     - git remote set-url origin git@gitlab.com:$CI_PROJECT_PATH.git
+     - git config --global user.email "${CI_EMAIL}" && git config --global user.name "${CI_USERNAME}"
+     - git checkout -b $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+     - mvn -U versions:set -DnewVersion=${version}
+     - git add pom.xml
+     - git commit -m 'update version [skip ci]'  || echo "Version up to date"
+     - git push origin dev:$CI_COMMIT_REF_NAME
+  rules:
+    - if: '$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^feature/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != $CI_DEFAULT_BRANCH'
+  when: manual  
+
+Bug update version:  
+  stage: upgrade_bug
+  tags:
+    - runner
+  before_script: 
+    - 'command -v ssh-agent || ( apt-get update -qy && apt-get install openssh-client -y )'
+    - eval `ssh-agent -s`
+    - echo "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null # add ssh key
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh 
+    - echo "$SSH_PUBLIC_KEY" >> ~/.ssh/id_rsa.pub
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+     - version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+     - version=$(echo ${version} |  awk -F'.' '{print $1"."$2"."$3+1}' |  sed s/[.]$//)
+     - git remote set-url origin git@gitlab.com:$CI_PROJECT_PATH.git
+     - git config --global user.email "${CI_EMAIL}" && git config --global user.name "${CI_USERNAME}"
+     - git checkout -b $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+     - mvn -U versions:set -DnewVersion=${version}
+     - git add pom.xml
+     - git commit -m 'update version [skip ci]'  || echo "Version up to date"
+     - git push origin dev:$CI_COMMIT_REF_NAME
+  rules:
+    - if: '$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME =~ /^bug/ && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME != $CI_DEFAULT_BRANCH'
+  when: manual  
+
+Build image:
+  stage: build
+  tags:
+    - runner
+  image: docker:git
+  services:
+  - docker:stable-dind
+  before_script:
+    - source $VARIABLES_FILE
+    - source $CONTAINER
+  script:
+    - docker login ${REGISTRY_URL} -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
+    - docker build -t ${REGISTRY_URL}:${CONTAINER_NAME}_${DOCKER_BUILD_ID}_${APP_VERSION} .
+    - docker push ${REGISTRY_URL}:${CONTAINER_NAME}_${DOCKER_BUILD_ID}_${APP_VERSION}
+  needs: ["Package"]  
+  only:
+    - dev
+    - master
+  when: on_success
+  
+
+Deploy DEV:
+  stage: deploy 
+  tags:
+    - runner
+  image: bitnami/kubectl:latest
+  before_script:
+    - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+    - source $VARIABLES_FILE
+    - source $CONTAINER   
+  script:
+    - cd deploy/
+    - sed -i 's/<VERSION>/'${CONTAINER_NAME}_${DOCKER_BUILD_ID}_${APP_VERSION}'/g' deployment.yaml
+    - kubectl apply -f deployment.yaml 
+  needs: 
+    - job: Package
+      artifacts: true
+    - job: Build image
+      artifacts: true
+  only:
+    - dev  
+  when: manual  
+
+Rollback DEV:
+  stage: rollback
+  tags:
+    - runner
+  image: bitnami/kubectl:latest 
+  before_script:
+    - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION} 
+  script:
+    - kubectl rollout undo deployment admin -n up-service
+  needs: ["Deploy DEV"]
+  only:
+    - dev
+  when: manual
+
+Deploy UAT:
+  stage: deploy
+  tags:
+    - uat
+  image: bitnami/kubectl:latest
+  before_script:
+    - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+    - source $VARIABLES_FILE
+    - source $CONTAINER
+  script:
+    - cd deploy/
+    - sed -i 's/<VERSION>/'${CONTAINER_NAME}_${DOCKER_BUILD_ID}_${APP_VERSION}'/g' uat.yaml
+    - kubectl apply -f uat.yaml
+  needs: 
+    - job: Package
+      artifacts: true
+    - job: Build image
+      artifacts: true  
+  only:
+    - dev  
+  when: manual    
+
+
+Rollback UAT:
+  stage: rollback
+  tags:
+    - uat
+  image: bitnami/kubectl:latest 
+  before_script:
+    - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION} 
+  script:
+    - kubectl rollout undo deployment admin -n up-service
+  needs: ["Deploy UAT"]  
+  only:
+    - dev
+  when: manual
+
+Deploy Prod:
+  stage: deploy 
+  tags:
+    - lab
+  image: bitnami/kubectl:latest
+  before_script:
+    - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+    - source $VARIABLES_FILE
+    - source $CONTAINER
+  script:
+    - cd deploy/
+    - sed -i 's/<VERSION>/'${CONTAINER_NAME}_${DOCKER_BUILD_ID}_${APP_VERSION}'/g' prod.yaml
+    - kubectl apply -f prod.yaml
+  needs: 
+    - job: Package
+      artifacts: true
+    - job: Build image
+      artifacts: true   
+  only:
+    - master
+  when: manual    
+
+
+Rollback Prod:
+  stage: rollback
+  tags:
+    - lab
+  image: bitnami/kubectl:latest 
+  before_script:
+    - export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    - export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    - export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION} 
+  script:
+    - kubectl rollout undo deployment admin -n up-service 
+  needs: ["Deploy Prod"]  
+  only:
+    - master
+  when: manual
+
