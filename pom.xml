@@ -64,7 +64,6 @@
             <version>1.9.2</version>
         </dependency>
 <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
-
 </dependencies>
      <repositories>
         <repository>
@@ -91,15 +90,7 @@
                     </argLine>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
+            </plugins>
     </build>
     <profiles>
         <profile>
@@ -112,13 +103,8 @@
                         <version>2.22.1</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>TestNGSuite2.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite3.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite4.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite5.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite6.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite7.xml</suiteXmlFile>
-                            </suiteXmlFiles>
+                                <suiteXmlFile>TestNGSuite.xml</suiteXmlFile>
+                                </suiteXmlFiles>
                         </configuration>
                     </plugin>
                 </plugins>
