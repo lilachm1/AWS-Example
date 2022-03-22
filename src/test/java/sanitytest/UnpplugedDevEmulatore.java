@@ -159,7 +159,7 @@ public class UnpplugedDevEmulatore {
            driver.findElement(By.id("dropdown_item_tv")).click();
         driver.findElement(By.xpath("//*[@text='YEAR - 99.9$']")).click();
         assertEquals(driver.findElement(By.xpath("//*[@text='YEAR - 99.9$']")).getText(),"YEAR - 99.9$");
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         assertEquals(driver.findElement(By.id("subscription_description_tv")).getText(),"Pro subscription get full access to all Unplugged Systems services for year.");
 
         driver.findElement(By.id("coupon_cb")).click();
