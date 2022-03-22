@@ -6,8 +6,7 @@
       <class name="sanitytest.UnpplugedDev">
    <methods>
         <include name="sing_in_manual"></include>
-       <include name="my_Apps_plus_up_Apps_plus_logout"></include>
-
+       <include name=" git remote add ori https://gitlab.com/unplugged-systems/up_automation.git   "></include>
    </methods>
       </class>
         </classes>
