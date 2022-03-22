@@ -6,18 +6,10 @@
       <class name="sanitytest.UnpplugedDev">
    <methods>
         <include name="register_plus_email_and_phone"></include>
-        </methods>
+       <include name="subscription_free"></include>
+       <include name="experimental_button"></include>
+       </methods>
       </class>
         </classes>
-  </test> <!-- Test -->
-    <test name="UnpplugedDev1">
-        <classes>
-            <class name="sanitytest.UnpplugedDev">
-                <methods>
-                    <include name="subscription_free"></include>
-                    <include name="my_Apps_plus_up_Apps_plus_logout"></include>
-                </methods>
-            </class>
-        </classes>
-    </test> <!-- Test -->
+     </test> <!-- Test -->
 </suite> <!-- Suite -->
