@@ -246,7 +246,7 @@ public class UnpplugedDevEmulatore {
     @Test(description ="Test 09: Register with generateRandomUsername and string password without email and phone")
     @Description("Test Description: Register without email and phone")
     public void register_without_email_and_phone() {
-        WebDriverWait wait = new WebDriverWait(driver, 80);
+        WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.elementToBeClickable(By.id("register_btn")));
         driver.findElement(By.id("register_btn")).click();
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
@@ -258,9 +258,9 @@ public class UnpplugedDevEmulatore {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='OK']")));
         driver.findElement(By.xpath("//*[@text='OK']")).click();
 
-        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='OK']")).click();
-        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         sing_in();
     }
 

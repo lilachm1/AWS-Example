@@ -149,12 +149,12 @@ public class UnpplugedDev {
             "subscription description text then add cupon and verify" +
             "the total price, then press pay with credit card")
     public void subscription_year (){
-    WebDriverWait wait = new WebDriverWait(driver, 40);
+    WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dropdown_item_tv")));
           driver.findElement(By.id("dropdown_item_tv")).click();
         driver.findElement(By.xpath("//*[@text='YEAR - 99.9$']")).click();
         assertEquals(driver.findElement(By.xpath("//*[@text='YEAR - 99.9$']")).getText(),"YEAR - 99.9$");
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         assertEquals(driver.findElement(By.id("subscription_description_tv")).getText(),"Pro subscription get full access to all Unplugged Systems services for year.");
 
         driver.findElement(By.id("coupon_cb")).click();
