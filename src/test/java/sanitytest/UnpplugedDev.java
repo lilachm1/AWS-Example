@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.*;
 
+
 // This Class is the main sanity tests of the DEV version.
 
 
@@ -71,7 +72,6 @@ public class UnpplugedDev {
         driver.findElement(By.id("password_input")).sendKeys("max123");
         driver.findElement(By.id("sign_in_btn")).click();
     }
-
 
     @Test(description = "Test 02: Register plus email and phone")
     @Description("Test Description: Registration with email and password with generateRandomUsername and string password." +
@@ -168,8 +168,6 @@ public class UnpplugedDev {
         driver.resetApp();
     }
 
-
-
         @Test(description = "Test 06: Click on messenger app")
         @Description("Test Description: At the store page click on the Messenger App and press on the download button")
 
@@ -177,7 +175,7 @@ public class UnpplugedDev {
         //    WebDriverWait wait = new WebDriverWait(driver, 10);
          //   wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_apps_input")));
         //    driver.findElement(By.id("search_apps_input")).sendKeys("up messenger");
-           WebDriverWait wait = new WebDriverWait(driver, 10);
+           WebDriverWait wait = new WebDriverWait(driver, 40);
             wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
             //driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
             AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
@@ -194,7 +192,6 @@ public class UnpplugedDev {
             driver.findElement(By.id("install_app_btn")).click();
             driver.resetApp();
 
-
         }
 
         @Test(description = "Test 07: Click on messenger app2")
@@ -203,7 +200,7 @@ public class UnpplugedDev {
             //    WebDriverWait wait = new WebDriverWait(driver, 10);
             //   wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_apps_input")));
             //    driver.findElement(By.id("search_apps_input")).sendKeys("up messenger");
-            WebDriverWait wait = new WebDriverWait(driver, 10);
+            WebDriverWait wait = new WebDriverWait(driver, 40);
             wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
             //driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
             AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
@@ -236,7 +233,6 @@ public class UnpplugedDev {
         @Test(description = "Test 09: Register without email and phone")
         @Description("Test Description: Register without email and phone with generateRandomUsername and string password the sing in")
         public void register_without_email_and_phone () {
-
             driver.findElement(By.id("register_btn")).click();
             driver.findElement(By.id("first_name_input")).sendKeys("lilach");
             driver.findElement(By.id("last_name_input")).sendKeys("test");
@@ -248,15 +244,12 @@ public class UnpplugedDev {
             wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
             driver.findElement(By.id("button1")).click();
 
-
-
             driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
             driver.findElement(By.xpath("//*[@text='OK']")).click();
             driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
             sing_in();
 
         }
-
 
         @Test(description = "Test 10: Register and forgot my password")
         @Description("Test Description: Registration with email and password with generateRandomUsername and string password." +
@@ -308,7 +301,6 @@ public class UnpplugedDev {
             driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
             driver.findElement(By.xpath("//*[@text='OK']")).click();
 
-
         }
 
         @Test(description = "Test 12: Press on experimental button")
@@ -322,7 +314,43 @@ public class UnpplugedDev {
           driver.resetApp();
 
         }
-            public void forgot_my_Password () {
+    @Test(description = "Test 13: Click on vpn app")
+    @Description("Test Description: At the store page, click on vpn app and press on the close button.")
+    public void click_on_vpn_app () {
+        WebDriverWait wait = new WebDriverWait(driver, 40);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
+        AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
+
+        MobileElement vpnElement = recyclerView.findElementByAccessibilityId("com.unplugged.vpn");
+        if (vpnElement != null) {
+
+            vpnElement.click();
+        }
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Close']")));
+        driver.findElement(By.id("close_tv")).click();
+    }
+
+    @Test(description = "Test 14: Click on vpn app")
+    @Description("Test Description: At the store page, click on vpn app and press on on the download button.")
+    public void click_on_vpn_app2 () {
+        WebDriverWait wait = new WebDriverWait(driver, 40);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
+        AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
+
+        MobileElement vpnElement = recyclerView.findElementByAccessibilityId("com.unplugged.vpn");
+        if (vpnElement != null) {
+
+            vpnElement.click();
+        }
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("install_app_btn")));
+
+        driver.findElement(By.id("install_app_btn")).click();
+        driver.resetApp();
+
+    }
+
+    public void forgot_my_Password () {
             driver.findElement(By.id("sign_in_btn")).click();
             driver.findElement(By.id("username_input")).sendKeys(username);
             driver.findElement(By.id("forgot_password_tv")).click();
@@ -348,9 +376,6 @@ public class UnpplugedDev {
             System.out.println("generateRandomUsername called: " + username);
             return username.toLowerCase();
         }
-
-
-
 
     }
 

@@ -6,6 +6,8 @@
             <class name="sanitytest.UnpplugedDevEmulatore">
                 <methods>
                     <include name="sing_in_manual"></include>
+                    <include name="click_on_messenger_app2"></include>
+                    <include name="click_on_vpn_app"></include>
                     <include name="my_Apps_plus_up_Apps_plus_logout"></include>
                 </methods>
             </class>

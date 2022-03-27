@@ -181,7 +181,7 @@ public class UnpplugedDevEmulatore {
         //    WebDriverWait wait = new WebDriverWait(driver, 10);
         //   wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_apps_input")));
         //    driver.findElement(By.id("search_apps_input")).sendKeys("up messenger");
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
         //driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
@@ -210,7 +210,7 @@ public class UnpplugedDevEmulatore {
         //    WebDriverWait wait = new WebDriverWait(driver, 10);
         //   wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_apps_input")));
         //    driver.findElement(By.id("search_apps_input")).sendKeys("up messenger");
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 40);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
         //driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
         AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
@@ -319,6 +319,43 @@ public class UnpplugedDevEmulatore {
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.findElement(By.id("action_experimental")).click();
         driver.resetApp();
+
+    }
+
+    @Test(description = "Test 13: Click on vpn app")
+    @Description("Test Description: At the store page, click on vpn app and press on the close button.")
+    public void click_on_vpn_app () {
+        WebDriverWait wait = new WebDriverWait(driver, 40);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
+        AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
+
+        MobileElement vpnElement = recyclerView.findElementByAccessibilityId("com.unplugged.vpn");
+        if (vpnElement != null) {
+
+            vpnElement.click();
+        }
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='Close']")));
+        driver.findElement(By.id("close_tv")).click();
+    }
+
+    @Test(description = "Test 14: Click on vpn app")
+    @Description("Test Description: At the store page, click on vpn app and press on on the download button.")
+    public void click_on_vpn_app2 () {
+        WebDriverWait wait = new WebDriverWait(driver, 40);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
+        AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
+
+        MobileElement vpnElement = recyclerView.findElementByAccessibilityId("com.unplugged.vpn");
+        if (vpnElement != null) {
+
+            vpnElement.click();
+        }
+
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("install_app_btn")));
+
+        driver.findElement(By.id("install_app_btn")).click();
+        driver.resetApp();
+
 
     }
 
