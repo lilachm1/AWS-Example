@@ -341,7 +341,7 @@ public class UnpplugedDevEmulatore {
     @Test(description = "Test 14: Click on vpn app")
     @Description("Test Description: At the store page, click on vpn app and press on on the download button.")
     public void click_on_vpn_app2 () {
-        WebDriverWait wait = new WebDriverWait(driver, 40);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
         AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
 

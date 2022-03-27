@@ -77,8 +77,8 @@ public class UnpplugedDev {
     @Description("Test Description: Registration with email and password with generateRandomUsername and string password." +
             "Then sing in.")
     public void register_plus_email_and_phone() {
-        WebDriverWait wait = new WebDriverWait(driver, 40);
-        driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.findElement(By.id("register_btn")).click();
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
         driver.findElement(By.id("last_name_input")).sendKeys("test");
@@ -92,7 +92,7 @@ public class UnpplugedDev {
         wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
         driver.findElement(By.id("button1")).click();
 
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         sing_in();
 
         //  driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
@@ -141,7 +141,7 @@ public class UnpplugedDev {
                 "Coupon discount: -$5.00\n" +
                 "Total:                       $4.90");
         driver.findElement(By.id("payment_btn")).click();
-        driver.resetApp();
+      driver.resetApp();
     }
 
     @Test(description = "Test 05: Subscription year")
@@ -170,8 +170,7 @@ public class UnpplugedDev {
 
         @Test(description = "Test 06: Click on messenger app")
         @Description("Test Description: At the store page click on the Messenger App and press on the download button")
-
-        public void click_on_messenger_app () {
+                public void click_on_messenger_app () {
         //    WebDriverWait wait = new WebDriverWait(driver, 10);
          //   wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_apps_input")));
         //    driver.findElement(By.id("search_apps_input")).sendKeys("up messenger");
@@ -285,20 +284,20 @@ public class UnpplugedDev {
         @Description("Test Description: At the up store page click my Apps then Up Apps the logout")
         public void my_Apps_plus_up_Apps_plus_logout ()
         {
-            WebDriverWait wait = new WebDriverWait(driver, 30);
+            WebDriverWait wait = new WebDriverWait(driver, 60);
             wait.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.ImageButton")));
             driver.findElement(By.className("android.widget.ImageButton")).click();
-            driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
             driver.findElement(By.id("action_my_apps")).click();
-            driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
             driver.findElement(By.className("android.widget.ImageButton")).click();
-            driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-            driver.findElement(By.id("action_recommended_apps")).click();
-            driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+            driver.findElement(By.id("action_apps_for_you")).click();
+            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
             driver.findElement(By.className("android.widget.ImageButton")).click();
-            driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
             driver.findElement(By.id("action_logout")).click();
-            driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
             driver.findElement(By.xpath("//*[@text='OK']")).click();
 
         }
@@ -317,7 +316,7 @@ public class UnpplugedDev {
     @Test(description = "Test 13: Click on vpn app")
     @Description("Test Description: At the store page, click on vpn app and press on the close button.")
     public void click_on_vpn_app () {
-        WebDriverWait wait = new WebDriverWait(driver, 40);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
         AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
 
@@ -350,7 +349,7 @@ public class UnpplugedDev {
 
     }
 
-    public void forgot_my_Password () {
+       public void forgot_my_Password () {
             driver.findElement(By.id("sign_in_btn")).click();
             driver.findElement(By.id("username_input")).sendKeys(username);
             driver.findElement(By.id("forgot_password_tv")).click();

@@ -7,9 +7,7 @@
                 <methods>
                     <include name="sing_in_manual"></include>
                     <include name="click_on_messenger_app"></include>
-                    <include name="sing_in_manual"></include>
-                    <include name="click_on_vpn_app2"></include>
-                </methods>
+                 </methods>
             </class>
         </classes>
     </test> <!-- Test -->
