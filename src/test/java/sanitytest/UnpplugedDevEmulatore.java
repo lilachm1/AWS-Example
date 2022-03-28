@@ -57,7 +57,7 @@ public class UnpplugedDevEmulatore {
         dc.setCapability(MobileCapabilityType.DEVICE_NAME, "emulator-5554");
         dc.setCapability(MobileCapabilityType.PLATFORM_NAME, "android");
         dc.setCapability(MobileCapabilityType.PLATFORM_VERSION, "11");
-        dc.setCapability(MobileCapabilityType.APP, "C:\\Automation\\UnpplugedAutomation\\src\\apks\\up_store_v0.5.25.apk");
+        dc.setCapability(MobileCapabilityType.APP, "C:\\Automation\\UnpplugedAutomation\\src\\apks\\up_store_v0.5.31.apk");
         dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
         dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.unplugged.store");
         dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".splash.SplashActivity");
@@ -299,7 +299,7 @@ public class UnpplugedDevEmulatore {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.findElement(By.className("android.widget.ImageButton")).click();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.findElement(By.id("action_recommended_apps")).click();
+        driver.findElement(By.id("action_apps_for_you")).click();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.findElement(By.className("android.widget.ImageButton")).click();
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
