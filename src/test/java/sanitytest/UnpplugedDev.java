@@ -250,11 +250,12 @@ public class UnpplugedDev {
 
         }
 
-        @Test(description = "Test 10: Register and forgot my password")
-        @Description("Test Description: Registration with email and password with generateRandomUsername and string password." +
+                @Test(description ="Test 10: Register and forgot my password")
+        @Description("Test Description:Registration with email and password with generateRandomUsername and string password." +
                 "Then press on forgot my password and then manually verify that The email has been sent")
-        public void register_and_forgot_my_password () {
-
+        public void register_and_forgot_my_password() {
+            WebDriverWait wait = new WebDriverWait(driver, 80);
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.id("register_btn")));
             driver.findElement(By.id("register_btn")).click();
             driver.findElement(By.id("first_name_input")).sendKeys("lilach");
             driver.findElement(By.id("last_name_input")).sendKeys("test");
@@ -264,20 +265,12 @@ public class UnpplugedDev {
             driver.findElement(By.id("password_input")).sendKeys(password);
             driver.findElement(By.id("confirm_password_input")).sendKeys(password);
             driver.findElement(By.id("register_btn")).click();
-            WebDriverWait wait = new WebDriverWait(driver, 20);
-            wait.until(ExpectedConditions.elementToBeClickable(By.id("button1")));
-            driver.findElement(By.id("button1")).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@text='OK']")));
+            driver.findElement(By.xpath("//*[@text='OK']")).click();
 
-
-            driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
             forgot_my_Password();
-            driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-            driver.findElement(By.id("navigate_back_iv")).click();
-            driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-
-            driver.findElement(By.id("navigate_back_iv")).click();
             driver.resetApp();
-
         }
 
         @Test(description = "Test 11: Press on my Apps then press Up Apps")
@@ -349,12 +342,14 @@ public class UnpplugedDev {
 
     }
 
+    @Test
        public void forgot_my_Password () {
             driver.findElement(By.id("sign_in_btn")).click();
             driver.findElement(By.id("username_input")).sendKeys(username);
             driver.findElement(By.id("forgot_password_tv")).click();
             driver.findElement(By.id("username_input")).sendKeys(username);
             driver.findElement(By.id("password_input")).click();
+
 
         }
 
