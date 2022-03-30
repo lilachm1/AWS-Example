@@ -105,7 +105,9 @@ public class UnpplugedDevEmulatore {
 
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         sing_in();
-             }
+     //   driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+
+    }
 
     @Test(description = "Test 03: Subscription Free")
     @Description("Test Description: At the SubscriptionPage page choose free, then verify the" +
@@ -144,8 +146,8 @@ public class UnpplugedDevEmulatore {
         assertEquals(driver.findElement(By.id("total_price_tv")).getText(),"Item total:               $9.90\n" +
                 "Coupon discount: -$5.00\n" +
                 "Total:                       $4.90");
-        driver.findElement(By.id("payment_btn")).click();
-        driver.resetApp();
+     driver.findElement(By.id("payment_btn")).click();
+     driver.resetApp();
     }
 
 
@@ -162,15 +164,17 @@ public class UnpplugedDevEmulatore {
         driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         assertEquals(driver.findElement(By.id("subscription_description_tv")).getText(),"Pro subscription get full access to all Unplugged Systems services for year.");
 
-        driver.findElement(By.id("coupon_cb")).click();
+ driver.findElement(By.id("coupon_cb")).click();
         driver.findElement(By.id("coupon_input")).sendKeys("UPC30");
         driver.findElement(By.id("apply_coupon_btn")).click();
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
+
         assertEquals(driver.findElement(By.id("total_price_tv")).getText(), "Item total:               $99.90\n" +
                 "Coupon discount: -$30.00\n" +
                 "Total:                       $69.90");
 
-        driver.findElement(By.id("payment_btn")).click();
-        driver.resetApp();
+       driver.findElement(By.id("payment_btn")).click();
+      driver.resetApp();
     }
 
 
@@ -262,13 +266,15 @@ public class UnpplugedDevEmulatore {
         driver.findElement(By.xpath("//*[@text='OK']")).click();
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         sing_in();
+       // driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+
     }
 
     @Test(description ="Test 10: Register and forgot my password")
     @Description("Test Description:Registration with email and password with generateRandomUsername and string password." +
             "Then press on forgot my password and then manually verify that The email has been sent")
     public void register_and_forgot_my_password() {
-        WebDriverWait wait = new WebDriverWait(driver, 80);
+        WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("register_btn")));
         driver.findElement(By.id("register_btn")).click();
        driver.findElement(By.id("first_name_input")).sendKeys("lilach");
@@ -284,7 +290,9 @@ public class UnpplugedDevEmulatore {
 
         driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         forgot_my_Password();
-        driver.resetApp();
+      //  driver.findElement(By.id("navigate_back_iv")).click();
+    //    driver.findElement(By.id("navigate_back_iv")).click();
+   driver.resetApp();
     }
 
     @Test(description ="Test 11: Press on my Apps then press Up Apps")
@@ -375,6 +383,8 @@ public class UnpplugedDevEmulatore {
         driver.findElement(By.id("username_input")).sendKeys(username);
         driver.findElement(By.id("password_input")).sendKeys(password);
         driver.findElement(By.id("sign_in_btn")).click();
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+
     }
 
 
