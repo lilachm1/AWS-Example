@@ -87,6 +87,7 @@ public class UnpplugedDevEmulatore {
         WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("register_btn")));
         driver.findElement(By.id("register_btn")).click();
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         driver.findElement(By.id("first_name_input")).sendKeys("lilach");
         driver.findElement(By.id("last_name_input")).sendKeys("test");
         driver.findElement(By.id("username_input")).sendKeys(username);
@@ -97,13 +98,13 @@ public class UnpplugedDevEmulatore {
         driver.findElement(By.id("register_btn")).click();
 
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK']")));
+     wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@text='OK']")));
 
-        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button1")));
+   // wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("button1")));
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='OK']")).click();
 
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+      //  driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         sing_in();
      //   driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 
@@ -264,7 +265,6 @@ public class UnpplugedDevEmulatore {
 
         driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='OK']")).click();
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         sing_in();
        // driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 
@@ -302,17 +302,17 @@ public class UnpplugedDevEmulatore {
         WebDriverWait wait = new WebDriverWait(driver, 80);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.className("android.widget.ImageButton")));
         driver.findElement(By.className("android.widget.ImageButton")).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         driver.findElement(By.id("action_my_apps")).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         driver.findElement(By.className("android.widget.ImageButton")).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         driver.findElement(By.id("action_apps_for_you")).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         driver.findElement(By.className("android.widget.ImageButton")).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         driver.findElement(By.id("action_logout")).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(80, TimeUnit.SECONDS);
         driver.findElement(By.xpath("//*[@text='OK']")).click();
 
     }
@@ -379,6 +379,7 @@ public class UnpplugedDevEmulatore {
 
 
     public void sing_in() {
+        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
         driver.findElement(By.id("sign_in_btn")).click();
         driver.findElement(By.id("username_input")).sendKeys(username);
         driver.findElement(By.id("password_input")).sendKeys(password);

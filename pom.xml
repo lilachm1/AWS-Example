@@ -3,16 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
       <groupId>org.example</groupId>
     <artifactId>UnpplugedAutomation</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.9.2</aspectj.version>
-         </properties>
+    </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
@@ -26,7 +25,7 @@
               <artifactId>selenium-java</artifactId>
               <version>3.141.5</version>
           </dependency> -->
-          <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
@@ -44,7 +43,7 @@
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-simple</artifactId>
+            <artifactId>slf4j-simple</artifactId>
             <version>1.7.35</version>
         </dependency>
         <dependency>
@@ -63,81 +62,68 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.2</version>
         </dependency>
-        <dependency>
-          <groupId>io.appium</groupId>
-          <artifactId>java-client</artifactId>
-          <version>4.1.2</version>
-        </dependency>
-<!-- https://mvnrepository.com/artifact/io.appium/java-client -->
-</dependencies>
-     <repositories>
+        <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+    </dependencies>
+    <repositories>
         <repository>
-             <releases>
-                 <enabled>true</enabled>
-                 <updatePolicy>always</updatePolicy>
-                 <checksumPolicy>fail</checksumPolicy>
-             </releases>
-             <id>Experitest.repo</id>
-             <name>YourName</name>
-             <url>https://repo.experitest.com:8010/Maven2/</url>
-             <layout>default</layout>
-         </repository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+            <id>Experitest.repo1</id>
+            <name>YourName</name>
+            <url>https://repo.experitest.com:8010/Maven2/</url>
+            <layout>default</layout>
+        </repository>
     </repositories>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
-                <configuration>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine>
-                </configuration>
-            </plugin>
-            </plugins>
-    </build>
     <profiles>
+    <profile>
+        <id>Device</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                    <configuration>
+                        <suiteXmlFiles>
+                            <suiteXmlFile>TestNGSuite2.xml</suiteXmlFile>
+                            <suiteXmlFile>TestNGSuite1.xml</suiteXmlFile>
+                            <suiteXmlFile>TestNGSuite3.xml</suiteXmlFile>
+                            <suiteXmlFile>TestNGSuite4.xml</suiteXmlFile>
+                        </suiteXmlFiles>
+                        <argLine>
+                            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        </argLine>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
         <profile>
-            <id>Device</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.22.1</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>TestNGSuite2.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite1.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite3.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite4.xml</suiteXmlFile>
-                            </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+        <id>Device1</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.22.1</version>
+                    <configuration>
+                        <suiteXmlFiles>
+                            <suiteXmlFile>TestNGSuite.xml</suiteXmlFile>
+                            <suiteXmlFile>TestNGSuite0.xml</suiteXmlFile>
+                            <suiteXmlFile>TestNGSuite00.xml</suiteXmlFile>
+                        </suiteXmlFiles>
+                        <argLine>
+                            -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        </argLine>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
         </profile>
         <profile>
-            <id>Device1</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.22.1</version>
-                        <configuration>
-                            <suiteXmlFiles>
-                                <suiteXmlFile>TestNGSuite.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite0.xml</suiteXmlFile>
-                                <suiteXmlFile>TestNGSuite00.xml</suiteXmlFile>
-                                 </suiteXmlFiles>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-            <profile>
             <id>Emulator</id>
             <build>
                 <plugins>
@@ -149,28 +135,34 @@
                             <suiteXmlFiles>
                                 <suiteXmlFile>TestNGSuite14.xml</suiteXmlFile>
                             </suiteXmlFiles>
+                            <argLine>
+                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                            </argLine>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
-    <profile>
-        <id>Emulator1</id>
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.1</version>
-                    <configuration>
-                        <suiteXmlFiles>
-                            <suiteXmlFile>TestNGSuite15.xml</suiteXmlFile>
-                        </suiteXmlFiles>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </build>
-    </profile>
+        <profile>
+            <id>Emulator1</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.1</version>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>TestNGSuite15.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                            <argLine>
+                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                            </argLine>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>Emulator2</id>
             <build>
@@ -183,6 +175,9 @@
                             <suiteXmlFiles>
                                 <suiteXmlFile>TestNGSuite16.xml</suiteXmlFile>
                             </suiteXmlFiles>
+                            <argLine>
+                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                            </argLine>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -199,12 +194,15 @@
                         <configuration>
                             <suiteXmlFiles>
                                 <suiteXmlFile>TestNGSuite17.xml</suiteXmlFile>
+                                <suiteXmlFile>TestNGSuite18.xml</suiteXmlFile>
                             </suiteXmlFiles>
+                            <argLine>
+                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                            </argLine>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
-</profiles>
+           </profiles>
 </project>
-

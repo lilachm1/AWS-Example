@@ -11,15 +11,5 @@
                     </methods>
             </class>
         </classes>
-    </test> <!-- Test -->
-    <test name="UnpplugedEmulator1">
-        <classes>
-            <class name="sanitytest.UnpplugedDevEmulatore">
-                <methods>
-                    <include name="register_without_email_and_phone"></include>
-                    <include name="subscription_month"></include>
-                </methods>
-            </class>
-        </classes>
-    </test> <!-- Test -->
+        </test> <!-- Test -->
       </suite> <!-- Suite -->
