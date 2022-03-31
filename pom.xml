@@ -63,6 +63,11 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.2</version>
         </dependency>
+        <dependency>
+          <groupId>io.appium</groupId>
+          <artifactId>java-client</artifactId>
+          <version>4.1.2</version>
+        </dependency>
 <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
 </dependencies>
      <repositories>
@@ -72,7 +77,7 @@
                  <updatePolicy>always</updatePolicy>
                  <checksumPolicy>fail</checksumPolicy>
              </releases>
-             <id>Experitest.repo1</id>
+             <id>Experitest.repo</id>
              <name>YourName</name>
              <url>https://repo.experitest.com:8010/Maven2/</url>
              <layout>default</layout>
