@@ -13,24 +13,4 @@
             </class>
         </classes>
     </test> <!-- Test -->
-            <test name="UnpplugedEmulator4">
-        <classes>
-            <class name="sanitytest.UnpplugedDevEmulatore">
-                <methods>
-                    <include name="sing_in_manual"></include>
-                    <include name="click_on_messenger_app"></include>
-                    </methods>
-            </class>
-        </classes>
-    </test> <!-- Test -->
-    <test name="UnpplugedEmulator5">
-        <classes>
-            <class name="sanitytest.UnpplugedDevEmulatore">
-                <methods>
-                     <include name="sing_in_manual"></include>
-                    <include name="click_on_vpn_app2"></include>
-                </methods>
-            </class>
-        </classes>
-    </test> <!-- Test -->
-           </suite> <!-- Suite -->
+               </suite> <!-- Suite -->
