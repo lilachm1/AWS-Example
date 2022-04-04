@@ -363,11 +363,33 @@ public class UnpplugedDevEmulatore {
 
         driver.findElement(By.id("install_app_btn")).click();
         driver.resetApp();
-
-
     }
 
+    @Test (description = "Test 15: search app ")
+    @Description("Test Description: At the store page, typ the letter at the search filed and press at the search bottom .")
+    public void search_app()
+    {
+        WebDriverWait wait = new WebDriverWait(driver, 40);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_input_overlay")));
+        driver.findElement(By.id("search_input_overlay")).click();
+        driver.findElement(By.id("search_apps_input")).sendKeys("v");
+        driver.tap(1, 610, 1421, 500);
+        driver.navigate().back();
+    }
 
+    @Test (description = "Test 16: swipe_upstore ")
+    @Description("Test Description: At the up-store page, swipe down")
+    public void swipe_upstore() {
+        WebDriverWait wait = new WebDriverWait(driver, 40);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_input_overlay")));
+        driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
+        driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
+        driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
+        driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
+        driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
+        driver.navigate().back();
+
+    }
     public void forgot_my_Password() {
         driver.findElement(By.id("sign_in_btn")).click();
         driver.findElement(By.id("username_input")).sendKeys(username);

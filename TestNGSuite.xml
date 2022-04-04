@@ -6,6 +6,7 @@
       <class name="sanitytest.UnpplugedDev">
    <methods>
         <include name="sing_in_manual"></include>
+       <include name="search_app"></include>
        <include name="click_on_vpn_app2"></include>
    </methods>
       </class>

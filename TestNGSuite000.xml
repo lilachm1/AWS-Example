@@ -5,7 +5,8 @@
     <classes>
       <class name="sanitytest.UnpplugedDev">
    <methods>
-        <include name="sing_in_manual"></include>
+       <include name="sing_in_manual"></include>
+       <include name="swipe_upstore"></include>
    </methods>
       </class>
         </classes>
