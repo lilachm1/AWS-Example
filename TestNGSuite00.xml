@@ -13,4 +13,24 @@
       </class>
         </classes>
   </test> <!-- Test -->
+<test name="UnpplugedDev2">
+<classes>
+    <class name="sanitytest.UnpplugedDev">
+        <methods>
+            <include name="sing_in_manual"></include>
+            <include name="swipe_upstore"></include>
+        </methods>
+    </class>
+</classes>
+</test> <!-- Test -->
+    <test name="UnpplugedDev1">
+        <classes>
+            <class name="sanitytest.UnpplugedDev">
+                <methods>
+                    <include name="sing_in_manual"></include>
+                    <include name="click_on_messenger_app"></include>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
 </suite> <!-- Suite -->

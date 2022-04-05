@@ -1,0 +1,1 @@
+{"uuid":"6b61d50f-7c3f-4e2a-a3a4-2bb220dc0510","name":"sanitytest.UnpplugedDevEmulatore","children":["6f671623-7b8c-4d7e-ad77-34923aa89463"],"befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1649072491620,"stop":1649072500633}],"afters":[],"start":1649072491590,"stop":1649072502941}

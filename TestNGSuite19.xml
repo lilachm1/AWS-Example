@@ -16,7 +16,17 @@
             <class name="sanitytest.UnpplugedDevEmulatore">
                 <methods>
                      <include name="sing_in_manual"></include>
-                    <include name="click_on_vpn_app2"></include>
+                    <include name="search_app"></include>
+                </methods>
+            </class>
+        </classes>
+    </test> <!-- Test -->
+    <test name="UnpplugedEmulator6">
+        <classes>
+            <class name="sanitytest.UnpplugedDevEmulatore">
+                <methods>
+                    <include name="sing_in_manual"></include>
+                    <include name="swipe_upstore"></include>
                 </methods>
             </class>
         </classes>

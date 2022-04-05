@@ -111,10 +111,8 @@
                     <configuration>
                         <suiteXmlFiles>
                             <suiteXmlFile>TestNGSuite.xml</suiteXmlFile>
-                            <suiteXmlFile>TestNGSuite0.xml</suiteXmlFile>
                             <suiteXmlFile>TestNGSuite00.xml</suiteXmlFile>
-                            <suiteXmlFile>TestNGSuite000.xml</suiteXmlFile>
-                        </suiteXmlFiles>
+                     </suiteXmlFiles>
                         <argLine>
                             -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                         </argLine>

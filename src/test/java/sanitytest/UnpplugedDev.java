@@ -65,6 +65,7 @@ public class UnpplugedDev {
     @Test(description = "Test 01: Singin with old user and password (not generateRandomUsername and string password)")
     @Description("Test Description: Singin with old user and password")
     public void sing_in_manual() {
+        driver.resetApp();
         WebDriverWait wait = new WebDriverWait(driver, 10);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
@@ -352,9 +353,11 @@ public class UnpplugedDev {
         WebDriverWait wait = new WebDriverWait(driver, 40);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_input_overlay")));
 driver.findElement(By.id("search_input_overlay")).click();
- driver.findElement(By.id("search_apps_input")).sendKeys("v");
+ driver.findElement(By.id("search_apps_input")).sendKeys("up");
 driver.tap(1, 610, 1421, 500);
-driver.navigate().back();
+click_on_vpn_app2();
+
+
     }
 
 

@@ -1,21 +1,26 @@
 package sanitytest;
 
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import org.boon.core.Sys;
 import org.openqa.selenium.By;
+import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -71,6 +76,7 @@ public class UnpplugedDevEmulatore {
     @Test(description ="Test 01: Singin with old user and password (not generateRandomUsername and string password)")
     @Description("Test Description: Singin with old user and password.")
     public void sing_in_manual() {
+        driver.resetApp();
         WebDriverWait wait = new WebDriverWait(driver, 60);
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 
@@ -367,27 +373,38 @@ public class UnpplugedDevEmulatore {
 
     @Test (description = "Test 15: search app ")
     @Description("Test Description: At the store page, typ the letter at the search filed and press at the search bottom .")
-    public void search_app()
-    {
-        WebDriverWait wait = new WebDriverWait(driver, 40);
+    public void search_app() {
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_input_overlay")));
         driver.findElement(By.id("search_input_overlay")).click();
-        driver.findElement(By.id("search_apps_input")).sendKeys("v");
-        driver.tap(1, 610, 1421, 500);
-        driver.navigate().back();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_apps_input")));
+        MobileElement elem = driver.findElement(By.id("search_apps_input"));
+        elem.sendKeys("up");
+        driver.executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));
+        click_on_vpn_app2();
+
+
     }
 
     @Test (description = "Test 16: swipe_upstore ")
     @Description("Test Description: At the up-store page, swipe down")
     public void swipe_upstore() {
-        WebDriverWait wait = new WebDriverWait(driver, 40);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_input_overlay")));
-        driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
-        driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
-        driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
-        driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
-        driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
+    //    driver.context("NATIVE_APP");
+
+        WebDriverWait wait = new  WebDriverWait(driver, 100);
+     wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_input_overlay")));
+
+
+      //  driver.swipe(44,490,44,1845,2000);
+
+            driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
+       driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
+       driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
+      driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
+       driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
         driver.navigate().back();
+
+
 
     }
     public void forgot_my_Password() {
