@@ -12,14 +12,4 @@
       </class>
         </classes>
      </test> <!-- Test -->
-       <test name="UnpplugedDev3">
-        <classes>
-            <class name="sanitytest.UnpplugedDev">
-                <methods>
-                    <include name="register_without_email_and_phone"></include>
-                    <include name="subscription_year"></include>
-                </methods>
-            </class>
-        </classes>
-    </test> <!-- Test -->
-</suite> <!-- Suite -->
+       </suite> <!-- Suite -->

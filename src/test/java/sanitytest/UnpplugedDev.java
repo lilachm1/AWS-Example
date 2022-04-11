@@ -70,8 +70,8 @@ public class UnpplugedDev {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         driver.findElement(By.id("sign_in_btn")).click();
-        driver.findElement(By.id("username_input")).sendKeys("maks14.test");
-        driver.findElement(By.id("password_input")).sendKeys("max123");
+        driver.findElement(By.id("username_input")).sendKeys("ty97.test");
+        driver.findElement(By.id("password_input")).sendKeys("ty97");
         driver.findElement(By.id("sign_in_btn")).click();
     }
 
@@ -327,7 +327,7 @@ public class UnpplugedDev {
     @Test(description = "Test 14: Click on vpn app")
     @Description("Test Description: At the store page, click on vpn app and press on on the download button.")
     public void click_on_vpn_app2 () {
-        WebDriverWait wait = new WebDriverWait(driver, 40);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
         AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
 

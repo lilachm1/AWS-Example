@@ -9,10 +9,15 @@ import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
+import static java.time.Duration.ofMillis;
+import io.appium.java_client.touch.WaitOptions;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import org.boon.core.Sys;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.touch.TouchActions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,9 +26,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
-
+import io.appium.java_client.touch.offset.PointOption;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
@@ -260,7 +268,7 @@ public class UnpplugedDevEmulatore {
         WebDriverWait wait = new WebDriverWait(driver, 100);
         wait.until(ExpectedConditions.elementToBeClickable(By.id("register_btn")));
         driver.findElement(By.id("register_btn")).click();
-        driver.findElement(By.id("first_name_input")).sendKeys("lilach");
+    driver.findElement(By.id("first_name_input")).sendKeys("lilach");
         driver.findElement(By.id("last_name_input")).sendKeys("test");
         driver.findElement(By.id("username_input")).sendKeys(username);
         driver.findElement(By.id("password_input")).sendKeys(password);
@@ -355,7 +363,7 @@ public class UnpplugedDevEmulatore {
     @Test(description = "Test 14: Click on vpn app")
     @Description("Test Description: At the store page, click on vpn app and press on on the download button.")
     public void click_on_vpn_app2 () {
-        WebDriverWait wait = new WebDriverWait(driver, 60);
+        WebDriverWait wait = new WebDriverWait(driver, 80);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("apps_rv")));
         AndroidElement recyclerView = driver.findElement(By.id("apps_rv"));
 
@@ -386,27 +394,7 @@ public class UnpplugedDevEmulatore {
 
     }
 
-    @Test (description = "Test 16: swipe_upstore ")
-    @Description("Test Description: At the up-store page, swipe down")
-    public void swipe_upstore() {
-    //    driver.context("NATIVE_APP");
 
-        WebDriverWait wait = new  WebDriverWait(driver, 100);
-     wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_input_overlay")));
-
-
-      //  driver.swipe(44,490,44,1845,2000);
-
-            driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
-       driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
-       driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
-      driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
-       driver.executeScript("seetest:client.swipe(\"Down\", 0, 2000)");
-        driver.navigate().back();
-
-
-
-    }
     public void forgot_my_Password() {
         driver.findElement(By.id("sign_in_btn")).click();
         driver.findElement(By.id("username_input")).sendKeys(username);
