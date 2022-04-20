@@ -36,7 +36,7 @@ public class UnpplugedDev {
     private String username;
     private String password;
 
-    DesiredCapabilities dc = new DesiredCapabilities();
+   DesiredCapabilities dc = new DesiredCapabilities();
 
 
     /*
@@ -54,13 +54,28 @@ public class UnpplugedDev {
         dc.setCapability(MobileCapabilityType.UDID, "R9PR900B9GL");
         dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.unplugged.store");
         dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".splash.SplashActivity");
-  //    dc.setCapability("noSign", true);
-        driver = new AndroidDriver<>(new URL("http://localhost:4723/wd/hub"), dc);
+        //    dc.setCapability("noSign", true);
+        driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), dc);
         username = generateRandomUsername();
         password = "lilach123";
-
-
     }
+      /* final String URL_STRING = "http://127.0.0.1:4723/wd/hub";
+      //  URL url = new URL(URL_STRING);
+
+        //Use a empty DesiredCapabilities object
+     //  DesiredCapabilities capabilities = new DesiredCapabilities();
+
+     //   if (System.getenv("DEVICEFARM_DEVICE_NAME") == null) {
+          //  driver = new AndroidDriver<>(new URL("http://127.0.0.1:4723/wd/hub"), dc);
+            //Start an Appium server and set the DesiredCapabilities capabilities only for local development
+
+        }
+        // Else, I am running on Device Farm, so I dont need to set capabilities
+
+      //  driver = new AndroidDriver(url, capabilities);
+
+*/
+
 
     @Test(description = "Test 01: Singin with old user and password (not generateRandomUsername and string password)")
     @Description("Test Description: Singin with old user and password")
@@ -109,14 +124,14 @@ public class UnpplugedDev {
     @Description("Test Description: At the SubscriptionPage page choose free, then verify the" +
             " subscription description text and press ok with no money")
     public void subscription_free() {
-        WebDriverWait wait = new WebDriverWait(driver, 40);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("dropdown_item_tv")));
         assertEquals(driver.findElement(By.id("dropdown_item_tv")).getText(),"FREE - 0.0$");
        assertEquals(driver.findElement(By.id("subscription_description_tv")).getText(),"Free subscription " +
         "get basic functionality like, full access to UP Store, limited VPN services and basic messenger application.");
 
         driver.findElement(By.id("payment_btn")).click();
-        driver.manage().timeouts().implicitlyWait(40, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
      driver.findElement(By.id("button1")).click();
        // driver.resetApp();
     }
@@ -350,7 +365,7 @@ public class UnpplugedDev {
     @Description("Test Description: At the store page, typ the letter at the search filed and press at the search bottom .")
     public void search_app()
     {
-        WebDriverWait wait = new WebDriverWait(driver, 40);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("search_input_overlay")));
 driver.findElement(By.id("search_input_overlay")).click();
  driver.findElement(By.id("search_apps_input")).sendKeys("up");
